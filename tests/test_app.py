@@ -77,3 +77,17 @@ class TestSprint2(unittest.TestCase):
         ms.add_student("203", "NoMarks")
         with self.assertRaises(ValueError):
             ms.calculate_grade("203")
+class TestSprint3(unittest.TestCase):
+
+    def test_generate_report_header(self):
+        ms = MarksSystem()
+        ms.add_student("301", "Kiran")
+        report = ms.generate_report()
+        self.assertIn("ROLL\tNAME\tMARKS\tGRADE", report)
+
+    def test_generate_report_contains_student(self):
+        ms = MarksSystem()
+        ms.add_student("302", "Amit")
+        ms.add_marks("302", 91)
+        report = ms.generate_report()
+        self.assertIn("302\tAmit\t91\tA+", report)
