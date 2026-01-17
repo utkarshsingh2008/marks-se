@@ -45,3 +45,35 @@ class TestSprint1(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+class TestSprint2(unittest.TestCase):
+
+    def test_calculate_grade_A_plus(self):
+        ms = MarksSystem()
+        ms.add_student("201", "Ravi")
+        ms.add_marks("201", 95)
+        self.assertEqual(ms.calculate_grade("201"), "A+")
+
+    def test_calculate_grade_boundaries(self):
+        ms = MarksSystem()
+        ms.add_student("202", "Mina")
+
+        ms.add_marks("202", 89)
+        self.assertEqual(ms.calculate_grade("202"), "A")
+
+        ms.add_marks("202", 79)
+        self.assertEqual(ms.calculate_grade("202"), "B")
+
+        ms.add_marks("202", 60)
+        self.assertEqual(ms.calculate_grade("202"), "C")
+
+        ms.add_marks("202", 50)
+        self.assertEqual(ms.calculate_grade("202"), "D")
+
+        ms.add_marks("202", 49)
+        self.assertEqual(ms.calculate_grade("202"), "F")
+
+    def test_calculate_grade_marks_not_set(self):
+        ms = MarksSystem()
+        ms.add_student("203", "NoMarks")
+        with self.assertRaises(ValueError):
+            ms.calculate_grade("203")
